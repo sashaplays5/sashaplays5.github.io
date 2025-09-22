@@ -1,119 +1,250 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Олеся, прости меня</title>
-  <script src="https://cdn.tailwindcss.com"></script>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>С Днём Рождения!</title>
+  <meta name="description" content="Нежная лавандовая открытка ко дню рождения" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg1:#f9e9ff;
+      --lavender:#b89fe6;
+      --pink:#ff9ccf;
+      --violet:#7a4cb8;
+      --card-bg: rgba(255,255,255,0.85);
+      --glass: rgba(255,255,255,0.22);
+      --accent: #f47fb3;
+      --radius: 18px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      background: linear-gradient(135deg,#ffdbe9 0%, #f2d9ff 30%, #e7d6ff 60%, #e6e0ff 100%);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:24px;
+      color:#3b2b45;
+    }
+
+    .wrapper{
+      width:100%;
+      max-width:920px;
+      min-height:560px;
+      border-radius: calc(var(--radius) + 8px);
+      padding:28px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.6), rgba(255,255,255,0.45));
+      box-shadow: 0 10px 30px rgba(122,76,184,0.12), inset 0 1px 0 rgba(255,255,255,0.6);
+      position:relative;
+      overflow:hidden;
+      backdrop-filter: blur(6px) saturate(1.05);
+    }
+
+    /* decorative lavender sprigs (SVG placed via ::before) */
+    .wrapper::before,
+    .wrapper::after{
+      content:'';
+      position:absolute;
+      width:260px;
+      height:260px;
+      background-repeat:no-repeat;
+      background-size:contain;
+      opacity:0.22;
+      pointer-events:none;
+    }
+    .wrapper::before{
+      left:-20px;
+      top:-40px;
+      transform:rotate(-10deg);
+      background-image: url('data:image/svg+xml;utf8,<?xml version="1.0" encoding="UTF-8"?><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"><g fill="none" stroke="%238c6ad9" stroke-width="2"><path d="M18 90c10-12 36-22 44-48"/><path d="M18 78c14-6 26-22 44-28"/><path d="M14 42c10-2 24-6 36-6"/></g><g stroke="%23b89fe6" fill="%23b89fe6"><ellipse cx="30" cy="78" rx="2" ry="4"/><ellipse cx="42" cy="60" rx="2" ry="4"/></g></svg>');
+    }
+    .wrapper::after{
+      right:-30px;
+      bottom:-40px;
+      transform:rotate(15deg) scale(1.1);
+      background-image: url('data:image/svg+xml;utf8,<?xml version="1.0" encoding="UTF-8"?><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"><g fill="none" stroke="%238c6ad9" stroke-width="2"><path d="M100 30c-10 12-36 22-44 48"/><path d="M100 42c-14 6-26 22-44 28"/><path d="M104 78c-10 2-24 6-36 6"/></g><g stroke="%23b89fe6" fill="%23b89fe6"><ellipse cx="90" cy="42" rx="2" ry="4"/><ellipse cx="76" cy="60" rx="2" ry="4"/></g></svg>');
+    }
+
+    header{
+      display:flex;
+      align-items:center;
+      gap:20px;
+    }
+
+    .logo{
+      width:84px;height:84px;border-radius:14px;
+      background: linear-gradient(135deg,var(--lavender),var(--pink));
+      display:flex;align-items:center;justify-content:center;
+      box-shadow: 0 6px 18px rgba(122,76,184,0.14);
+      color:white;font-weight:700;font-family:'Playfair Display',serif;font-size:28px;
+    }
+
+    h1{
+      margin:0;font-family:'Playfair Display',serif;font-weight:700;font-size:36px;line-height:1.02;color:#3b2b45
+    }
+    h1 .name{color:var(--violet);display:inline-block}
+    .subtitle{margin-top:8px;color: #53485b;opacity:0.9}
+
+    main{
+      margin-top:22px;
+      display:flex;gap:28px;align-items:flex-start;
+      flex-wrap:wrap;
+    }
+
+    .card{
+      background:var(--card-bg);
+      border-radius:14px;
+      padding:22px;
+      flex:1 1 320px;
+      min-width:260px;
+      box-shadow: 0 6px 20px rgba(103,70,140,0.06);
+      border: 1px solid rgba(255,255,255,0.6);
+      backdrop-filter: blur(4px);
+    }
+
+    .message{
+      font-size:18px;line-height:1.6;color:#3b2b45;
+      font-weight:300;
+      white-space:pre-wrap
+    }
+
+    .actions{display:flex;gap:12px;align-items:center;margin-top:18px}
+    .btn{
+      appearance:none;border:0;padding:12px 18px;border-radius:999px;font-weight:600;cursor:pointer;
+      background: linear-gradient(90deg,var(--accent),var(--violet));color:white;box-shadow: 0 8px 18px rgba(122,76,184,0.18);
+      transition:transform .18s ease, box-shadow .18s ease;
+    }
+    .btn:active{transform:translateY(2px)}
+
+    .ghost{
+      background:transparent;color:var(--violet);border:1px solid rgba(122,76,184,0.12);padding:10px 14px;border-radius:12px;font-weight:600
+    }
+
+    /* floating hearts */
+    .hearts{
+      pointer-events:none;position:absolute;inset:0;overflow:hidden;
+    }
+
+    .heart{
+      position:absolute;bottom:-10%;left:50%;width:18px;height:18px;transform-origin:center;opacity:0.9;
+      animation:floatUp 6s linear infinite;
+    }
+    .heart svg{width:100%;height:100%;filter:drop-shadow(0 6px 12px rgba(122,76,184,0.12))}
+
+    @keyframes floatUp{
+      0%{transform:translate3d(0,0,0) scale(.8);opacity:0}
+      10%{opacity:1}
+      100%{transform:translate3d(var(--tx,0),-120vh,0) rotate(var(--rot,0));opacity:0}
+    }
+
+    /* reveal panel */
+    .surprise{
+      margin-top:10px;padding:18px;border-radius:14px;background:linear-gradient(180deg, rgba(250,240,255,0.9), rgba(255,255,255,0.8));
+      border:1px solid rgba(122,76,184,0.06);display:none;position:relative;overflow:hidden
+    }
+    .surprise.show{display:block;animation:popIn .5s ease}
+    @keyframes popIn{from{transform:scale(.98);opacity:0}to{transform:scale(1);opacity:1}}
+
+    .surprise .big{
+      font-family:'Playfair Display',serif;font-size:22px;margin:0 0 8px 0;color:var(--violet)
+    }
+    .surprise p{margin:0;font-size:16px;color:#4b3d55}
+
+    footer{margin-top:20px;text-align:center;color:#6a596e;font-size:14px}
+
+    /* responsive */
+    @media(max-width:680px){
+      .wrapper{padding:18px}
+      h1{font-size:28px}
+      .logo{width:64px;height:64px;font-size:22px}
+      .card{padding:16px}
+    }
+  </style>
 </head>
-<body class="min-h-screen flex items-center justify-center bg-gradient-to-b from-pink-50 to-white p-6">
-  <div class="w-full max-w-xl bg-white/90 backdrop-blur-md rounded-2xl shadow-xl overflow-hidden">
-    <header class="p-6 flex items-center gap-4">
-      <div class="w-14 h-14 rounded-full bg-pink-200 flex items-center justify-center text-2xl font-semibold text-white">❤</div>
+<body>
+  <div class="wrapper" role="main">
+    <div class="hearts" aria-hidden="true"></div>
+
+    <header>
+      <div class="logo">💜</div>
       <div>
-        <h1 class="text-xl font-bold">Олеся, мне очень стыдно</h1>
-        <p class="text-sm text-gray-600">Небольшая страничка, чтобы честно извиниться</p>
+        <h1>С Днём Рождения, <span id="girl-name" class="name">Олеся</span>!</h1>
+        <div class="subtitle">Нежная лавандовая открытка, созданная с любовью</div>
       </div>
     </header>
 
-    <main class="p-6 border-t border-gray-100">
-      <section class="space-y-4">
-        <p class="text-gray-800 leading-relaxed">
-          Я понимаю, что причинил тебе боль, и мне действительно жаль. Я хочу взять на себя ответственность за свои слова и поступки.
-        </p>
-
-        <div class="rounded-lg p-4 bg-pink-50">
-          <p class="text-sm text-gray-700">Коротко о том, что произошло:</p>
-          <ul class="mt-2 text-gray-700 list-disc list-inside text-sm">
-            <li>Я ошибся и позволил эмоциям взять верх.</li>
-            <li>Я не подумал о твоих чувствах в тот момент.</li>
-            <li>Готов изменить своё поведение и работать над собой.</li>
-          </ul>
+    <main>
+      <section class="card">
+        <div class="message">
+          <strong>Дорогая,</strong>
+          
+          Пусть этот день будет наполнен теплом и нежностью. Ты — мое любимое чудо, и каждый момент с тобой — как лёгкий лавандовый ветерок.<br><br>
+          Желаю тебе радости, спокойствия и много светлых улыбок. Ты делаешь этот мир лучше просто тем, что в нём есть.
         </div>
 
-        <button onclick="toggleMore()" id="moreBtn"
-          class="mt-2 w-full py-3 rounded-xl border border-pink-300 bg-white text-pink-600 font-medium shadow-sm hover:shadow-md transition">
-          Хочу сказать больше
-        </button>
+        <div class="actions">
+          <button class="btn" id="surpriseBtn" aria-controls="surprise">Нажми меня ❤️</button>
+          
+        </div>
 
-        <div id="moreText" class="hidden mt-4 p-4 bg-white/80 rounded-lg text-gray-800">
-          <p class="leading-relaxed text-sm">Я понимаю, что извинения без действий мало что значат. Поэтому я честно обещаю:</p>
-          <ol class="mt-2 list-decimal list-inside text-sm text-gray-700">
-            <li>Слушать тебя внимательнее и думать прежде чем говорить.</li>
-            <li>Больше времени уделять тому, что важно для нас обоих.</li>
-            <li>Если ты захочешь — мы напишем "договор" на небольшие обязательства, которые я выполню три дня подряд после твоего дня рождения.</li>
-          </ol>
-          <div class="mt-3">
-            <button onclick="openModal()" class="px-4 py-2 rounded-lg bg-pink-600 text-white font-medium">Открыть обещание</button>
-          </div>
+        <div class="surprise" id="surprise" role="region" aria-label="Сюрприз">
+          <div class="big">Ты — моё счастье.</div>
+          <p>Спасибо, что ты есть. Люблю тебя всем сердцем.</p>
         </div>
       </section>
 
-      <hr class="my-6 border-gray-100" />
-
-      <section class="flex flex-col gap-3">
-        <p class="text-sm text-gray-600">Если ты готова поговорить — я здесь и слушаю.</p>
-        <div class="flex gap-3">
-          <a href="tel:+79159363566" class="flex-1 text-center py-3 rounded-xl border border-gray-200">Позвонить</a>
-          <a href="https://t.me/sh33sa" target="_blank" class="flex-1 text-center py-3 rounded-xl bg-pink-600 text-white">Написать сообщение</a>
-        </div>
-      </section>
+      
     </main>
 
-    <footer class="p-4 text-center text-xs text-gray-500">
-      <p>С любовью, Александр — <span id="date"></span></p>
+    <footer>
+      27 сентября — с праздником ❤️
     </footer>
   </div>
 
-  <!-- Modal -->
-  <div id="modal" class="fixed inset-0 z-50 hidden items-end md:items-center justify-center p-4">
-    <div class="absolute inset-0 bg-black/40" onclick="closeModal()"></div>
-    <div class="relative w-full max-w-md bg-white rounded-2xl p-6 shadow-2xl">
-      <h3 class="text-lg font-semibold">Моё обещание</h3>
-      <p class="mt-2 text-sm text-gray-700">Я буду внимательнее, честнее и уважительнее. В любых спорах попытаюсь сначала понять тебя, а не защищаться.</p>
-      <ul class="mt-3 list-disc list-inside text-sm text-gray-700">
-        <li>Каждое утро — одно доброе действие в твою сторону.</li>
-        <li>Три дня подряд после твоего дня рождения — полное внимание, маленькие сюрпризы и поддержка.</li>
-      </ul>
-      <div class="mt-4 flex gap-3">
-        <button onclick="acceptApology()" class="flex-1 py-2 rounded-xl bg-pink-600 text-white">Я принимаю это</button>
-        <button onclick="closeModal()" class="flex-1 py-2 rounded-xl border">Закрыть</button>
-      </div>
-    </div>
-  </div>
+  <script>
+    // JS: управляет плавающими сердечками и сюрпризом
+    (function(){
+      const heartsContainer = document.querySelector('.hearts');
+      const spawnHeart = () => {
+        const el = document.createElement('div');
+        el.className = 'heart';
+        const size = Math.floor(Math.random()*20) + 14;
+        el.style.width = size + 'px';
+        el.style.height = size + 'px';
+        el.style.left = (Math.random()*100) + '%';
+        el.style.setProperty('--tx', (Math.random()*60 - 30) + 'vw');
+        el.style.setProperty('--rot', (Math.random()*160 - 80) + 'deg');
+        el.style.animationDuration = (6 + Math.random()*4) + 's';
+        el.innerHTML = '<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 20s-6.5-4.35-9-7.5C-1 7.5 5 2 12 8c7-6 13 0.5 9 4.5C18.5 15.65 12 20 12 20z" fill="url(#g)"/></svg>';
+        // add gradient to svg
+        el.querySelector('svg').innerHTML = '<defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#ff9ccf"/><stop offset="1" stop-color="#b89fe6"/></linearGradient></defs>' + el.querySelector('svg').innerHTML;
+        heartsContainer.appendChild(el);
+        // remove after animation
+        setTimeout(()=>{ el.remove(); }, 12000);
+      };
+      // start spawning hearts
+      const interval = setInterval(spawnHeart, 700);
 
-  <!-- Floating feedback -->
-  <div id="accepted" class="hidden fixed left-4 bottom-6 bg-white/95 px-4 py-2 rounded-full shadow-lg text-sm">Спасибо, что читаешь. ❤️</div>
-
-<script>
-document.getElementById('date').innerText = new Date().toLocaleDateString();
-
-function toggleMore(){
-  const text = document.getElementById('moreText');
-  const btn = document.getElementById('moreBtn');
-  if(text.classList.contains('hidden')){
-    text.classList.remove('hidden');
-    btn.innerText = 'Свернуть';
-  } else {
-    text.classList.add('hidden');
-    btn.innerText = 'Хочу сказать больше';
-  }
-}
-
-function openModal(){
-  document.getElementById('modal').classList.remove('hidden');
-  document.getElementById('modal').classList.add('flex');
-}
-
-function closeModal(){
-  document.getElementById('modal').classList.add('hidden');
-  document.getElementById('modal').classList.remove('flex');
-}
-
-function acceptApology(){
-  closeModal();
-  document.getElementById('accepted').classList.remove('hidden');
-}
-</script>
+      // surprise toggle
+      const btn = document.getElementById('surpriseBtn');
+      const surprise = document.getElementById('surprise');
+      btn.addEventListener('click', ()=>{
+        surprise.classList.toggle('show');
+        // small pulse effect
+        btn.animate([{transform:'scale(1)'},{transform:'scale(1.06)'},{transform:'scale(1)'}],{duration:320});
+      });
+      // accessibility: stop hearts when user navigates with prefers-reduced-motion
+      const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+      if(mq.matches){
+        clearInterval(interval);
+        document.querySelectorAll('.heart').forEach(h=>h.remove());
+      }
+    })();
+  </script>
 </body>
 </html>
